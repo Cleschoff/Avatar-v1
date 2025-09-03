@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />                                                                           <!-- Установка кодировки UTF-8 -->
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />                            <!-- Адаптивность для мобильных -->
+  <title>AI-Chat + Live Avatar</title>                                                               <!-- Заголовок вкладки -->
+  <link rel="stylesheet" href="css/style.css" />                                                     <!-- Подключение CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script> <!-- Библиотека LiveKit -->
+</head>
+<body>
+  <div class="main"> <!-- Основной контейнер -->
+
+    <div class="video-wrapper">                              <!-- Левая часть: зона аватара -->
+      <video id="avatar-video" playsinline autoplay></video> <!-- Видео поток от LiveKit -->
+    </div>
+
+    <div class="chat-wrapper">                               <!-- Правая часть: чат -->
+      <div id="chat-container" class="chat-container"></div> <!-- Контейнер для сообщений -->
+
+      <div class="input-container">                                                      <!-- Нижняя панель с кнопками и инпутом -->
+        <button id="mic-toggle" class="mic-off" title="Hold to talk">🎤</button>         <!-- Микрофон: включение речи -->
+        <input id="message-input" type="text" placeholder="Введите ваше сообщение..." /> <!-- Поле ввода текста -->
+        <button id="send-button">Отправить</button>                                      <!-- Кнопка отправки текста -->
+        <button id="avatar-toggle" class="off">Аватар</button>                           <!-- Кнопка включения/выключения аватара -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Подключение логики -->
+  <script src="js/transcribe.js" defer></script> <!-- Захват и передача голоса -->
+  <script src="js/chat.js" defer></script>       <!-- Текстовый чат с OpenAI -->
+  <script src="js/avatar.js" defer></script>     <!-- Управление аватаром через HeyGen -->
+</body>
+</html>
