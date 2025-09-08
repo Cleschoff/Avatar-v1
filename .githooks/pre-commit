@@ -1,0 +1,37 @@
+#!/bin/bash
+# Git pre-commit hook для проверки секретов
+
+echo "🔍 Pre-commit: Проверка на секреты..."
+
+# Проверяем, не добавлен ли .env в коммит
+if git diff --cached --name-only | grep -q "^\.env$"; then
+    echo "❌ ОШИБКА: Попытка закоммитить .env файл!"
+    echo "Используйте: git rm --cached .env"
+    exit 1
+fi
+
+# Проверяем изменяемые файлы на наличие ключей
+changed_files=$(git diff --cached --name-only)
+for file in $changed_files; do
+    # Пропускаем удаленные файлы
+    if [ ! -f "$file" ]; then
+        continue
+    fi
+    
+    # Проверяем на OpenAI ключи
+    if grep -q "sk-[a-zA-Z0-9]\{40,\}" "$file" 2>/dev/null; then
+        echo "❌ ОШИБКА: Найден API ключ в файле: $file"
+        exit 1
+    fi
+    
+    # Проверяем на прямые присвоения (кроме примеров)
+    if grep -q "OPENAI_API_KEY\s*=\s*[\"'][^\"']\+[\"']" "$file" 2>/dev/null; then
+        if ! grep -q "your_openai_api_key_here\|dummy_key_for_testing" "$file"; then
+            echo "❌ ОШИБКА: Найдено присвоение API ключа в файле: $file"
+            exit 1
+        fi
+    fi
+done
+
+echo "✅ Pre-commit: Проверка пройдена!"
+exit 0

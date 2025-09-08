@@ -1,0 +1,39 @@
+name: Security Check
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-secrets:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check for secrets
+      run: |
+        # Проверка на случайные API ключи
+        if grep -r "sk-[a-zA-Z0-9]\{40,\}" . \
+          --exclude-dir=.git \
+          --exclude-dir=venv \
+          --exclude=*.log \
+          --exclude=.env.example; then
+          echo "::error::Found potential API keys in code!"
+          exit 1
+        fi
+        
+    - name: Verify .gitignore
+      run: |
+        # Проверяем, что .env в .gitignore
+        if ! grep -q "^\.env$" .gitignore; then
+          echo "::error::.env is not in .gitignore!"
+          exit 1
+        fi
+        
+    - name: Run security script
+      run: |
+        chmod +x scripts/check-secrets.sh
+        ./scripts/check-secrets.sh

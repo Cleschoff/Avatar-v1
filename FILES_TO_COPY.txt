@@ -1,0 +1,27 @@
+Скопируйте ВСЕ эти файлы в папку D:\My_Projects\Avatar-v1:
+
+ГЛАВНЫЕ ФАЙЛЫ:
+1. AVATAR_MANAGER.bat - Главное меню (ЗАПУСТИТЕ ЭТОТ ФАЙЛ ПЕРВЫМ!)
+2. QUICK_START.bat - Быстрый запуск сервера
+
+УСТАНОВОЧНЫЕ ФАЙЛЫ:
+3. WINDOWS_SETUP.bat - Полная установка окружения
+4. requirements_windows.txt - Список совместимых пакетов
+5. FIX_PYDANTIC.bat - Исправление ошибок pydantic
+
+ФАЙЛЫ ЗАПУСКА:
+6. START_SERVER.bat - Запуск сервера
+7. run_server.py - Python скрипт запуска
+8. launcher.py - Альтернативный лаунчер
+
+ВСПОМОГАТЕЛЬНЫЕ:
+9. TEST_IMPORTS.py - Проверка установки
+10. WINDOWS_INSTRUCTIONS.md - Инструкция
+
+КАК ИСПОЛЬЗОВАТЬ:
+1. Скопируйте все файлы в D:\My_Projects\Avatar-v1
+2. Запустите AVATAR_MANAGER.bat
+3. Выберите пункт 1 (Full Setup)
+4. После установки выберите пункт 2 (Start Server)
+
+ИЛИ просто запустите QUICK_START.bat для быстрого старта!
